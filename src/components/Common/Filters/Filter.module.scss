@@ -1,0 +1,25 @@
+.search {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  max-width: 350px;
+  margin: 0 auto;
+
+  &__input {
+    width: 100%;
+    font-size: 18px;
+    padding: 10px;
+    margin: 10px;
+    background: rgb(61, 51, 34);
+    border: none;
+    border-radius: 3px;
+
+    color: white;
+
+    outline: none;
+    ::placeholder {
+      color: rgb(168, 158, 161);
+    }
+  }
+}

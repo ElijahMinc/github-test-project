@@ -1,0 +1,52 @@
+@use "display";
+@use "spacing";
+
+html,
+body {
+  padding: 10px;
+  margin: 0;
+
+  background-color: #f3efe4;
+}
+
+* {
+  font-family: "Nunito", -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
+    Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  outline: none;
+  box-sizing: border-box;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+h1,
+h2 {
+  margin: 0;
+
+  text-align: center;
+}
+
+a {
+  text-decoration: none;
+}
+
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+
+  padding: 0 10px;
+}
+
+ul,
+li {
+  list-style: none;
+}

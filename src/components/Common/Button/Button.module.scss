@@ -1,0 +1,16 @@
+.btn {
+  display: inline-block;
+  padding: 10px;
+  text-transform: uppercase;
+  background-color: white;
+  color: black;
+
+  cursor: pointer;
+
+  outline: none;
+
+  transition: 0.3s all;
+  &:active {
+    transform: translateY(3px);
+  }
+}
