@@ -29,7 +29,7 @@ export const AppContext = ({ children }: AppProviderProps) => {
   });
 
   const handleFilterChange = useCallback(
-    () => (key: keyof FiltersData, value: FiltersData[keyof FiltersData]) => {
+    (key: keyof FiltersData, value: FiltersData[keyof FiltersData]) => {
       setFilters((prev) => ({
         ...prev,
         [key]: value,
