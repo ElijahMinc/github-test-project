@@ -1,8 +1,8 @@
-import { getMaskSearchRepositoryQuery } from "../helpers/getMaskSearchQuery";
-import { $BaseApi } from "../http/axios";
-import { Repository } from "../types/repository.interface";
-import { GitHubResponseBySearch } from "../types/response-github.interface";
-import { HttpRequest } from "./HttpService";
+import { getMaskSearchRepositoryQuery } from "../helpers/getMaskSearchQuery"
+import { $BaseApi } from "../http/axios"
+import { Repository } from "../components/Repository/types/repository.interface"
+import { HttpRequest } from "./HttpService"
+import { GitHubResponseBySearch } from "../components/Repository/types/repository-response.interface"
 
 class RepositoryService extends HttpRequest {
   async getAllRepositories(
@@ -15,14 +15,14 @@ class RepositoryService extends HttpRequest {
           searchValue,
           login
         )}&per_page=20`
-      );
-      const repositories = data.items.map((item) => item);
+      )
+      const repositories = data.items.map((item) => item)
 
-      return repositories;
+      return repositories
     } catch (error) {
-      throw new Error("Error get users");
+      throw new Error("Error get repositories")
     }
   }
 }
 
-export default new RepositoryService();
+export default new RepositoryService()

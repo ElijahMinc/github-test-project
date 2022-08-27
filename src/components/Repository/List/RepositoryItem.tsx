@@ -1,5 +1,5 @@
 import React from "react";
-import { Repository } from "../../types/repository.interface";
+import { Repository } from "../types/repository.interface";
 import styles from "./Repository.module.scss";
 
 export const RepositoryItem: React.FC<Omit<Repository, "id">> = ({

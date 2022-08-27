@@ -16,6 +16,7 @@ export class HttpRequest {
     this.source = this.cancelToken.source();
   }
 
+
   abortRequest() {
     this.source.cancel();
     this.source = this.cancelToken.source();

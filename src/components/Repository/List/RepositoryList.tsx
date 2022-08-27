@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./Repository.module.scss";
 import { RepositoryItem } from "./RepositoryItem";
-import { Repository } from "../../types/repository.interface";
+import { Repository } from "../types/repository.interface";
 
 interface UserListProps {
   repositories: Repository[];

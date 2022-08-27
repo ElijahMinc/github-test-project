@@ -1,18 +1,18 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
-import { useAppContext } from "../../context/AppContext";
-import { useScroll } from "../../hooks/useScroll";
-import { useSkipFirstMount } from "../../hooks/useSkipFirstMount";
-import repositoryService from "../../service/RepositoryService";
-import { Repository } from "../../types/repository.interface";
-import { User } from "../../types/user.interface";
-import { Loader } from "../Common/Loader/Loader";
-import { errorToast, successToast } from "../Common/Toast/actions";
+import React, { useCallback, useEffect, useRef, useState } from "react"
+import { useAppContext } from "../../context/AppContext"
+import { useScroll } from "../../hooks/useScroll"
+import { useSkipFirstMount } from "../../hooks/useSkipFirstMount"
+import repositoryService from "../../service/RepositoryService"
+import { Repository } from "./types/repository.interface"
+import { User } from "../Users/types/user.interface"
+import { Loader } from "../Common/Loader/Loader"
+import { errorToast, successToast } from "../Common/Toast/actions"
 
 interface FetchRepoProps {
-  login: User["login"];
-  isInfinityPagination: boolean;
+  login: User["login"]
+  isInfinityPagination: boolean
 
-  render: (users: Repository[]) => JSX.Element;
+  render: (users: Repository[]) => JSX.Element
 }
 
 export const FetchRepositories: React.FC<FetchRepoProps> = ({
@@ -20,68 +20,69 @@ export const FetchRepositories: React.FC<FetchRepoProps> = ({
   login,
   render,
 }) => {
-  const [repositories, setRepository] = useState<Repository[]>([]);
-  const [isFetching, setFetching] = useState(false);
-  const [isError, setError] = useState(false);
-  const childRef = useRef<HTMLDivElement | null>(null);
+  const [repositories, setRepository] = useState<Repository[]>([])
+  const [isFetching, setFetching] = useState(false)
+  const [isError, setError] = useState(false)
+  const childRef = useRef<HTMLDivElement | null>(null)
 
-  const { filters, handleFilterChange } = useAppContext();
+  const { filters, handleFilterChange } = useAppContext()
 
   const fetchRepositories = useCallback(async () => {
-    setFetching(true);
+    setFetching(true)
     try {
       const repositories = await repositoryService.getAllRepositories(
-        filters.searchRepoValue,
+        filters.searchReposValue,
         login
-      );
+      )
 
-      setRepository(repositories);
-      successToast("Repositories are loaded");
+      setRepository(repositories)
+      successToast("Repositories are loaded")
     } catch (error) {
-      setError(true);
-      errorToast("Oops... Something went wrong :C");
+      setError(true)
+      errorToast("Oops... Something went wrong :C")
     } finally {
-      setFetching(false);
+      setFetching(false)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [filters.searchRepoValue]);
+  }, [filters.searchReposValue])
 
   useScroll(
     {
       childRef,
     },
     (_: IntersectionObserver) => {
-      const isNotObservering = !isInfinityPagination || isFetching || isError;
+      const isNotObservering = !isInfinityPagination || isFetching || isError
 
-      if (isNotObservering) return;
-      fetchRepositories();
+      if (isNotObservering) return
+      fetchRepositories()
 
-      handleFilterChange("perPage", +filters.perPage + 10);
+      handleFilterChange("perPage", +filters.perPage + 10)
 
-      window.scrollBy(0, -100);
+      window.scrollBy(0, -100)
     },
     {
       root: null,
       rootMargin: "0px",
       threshold: 0,
     }
-  );
+  )
 
   useEffect(() => {
     if (!isInfinityPagination) {
-      fetchRepositories();
+      fetchRepositories()
     }
 
     return () => {
-      repositoryService.abortRequest();
-    };
+      repositoryService.abortRequest()
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [])
 
   useSkipFirstMount(() => {
-    fetchRepositories();
-  }, [filters.searchRepoValue.length]);
-  const isEmptyRepositories = !isFetching && !repositories.length;
+    fetchRepositories()
+  }, [filters.searchReposValue.length])
+
+  const isEmptyRepositories = !isFetching && !repositories.length
 
   return (
     <>
@@ -90,5 +91,5 @@ export const FetchRepositories: React.FC<FetchRepoProps> = ({
       {isEmptyRepositories && <h2>No repositories</h2>}
       <div ref={isInfinityPagination ? childRef : null}></div>
     </>
-  );
-};
+  )
+}

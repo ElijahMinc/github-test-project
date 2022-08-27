@@ -5,7 +5,7 @@ import React, {
   useMemo,
   useState,
 } from "react";
-import { FiltersData } from "../types/filters.interface";
+import { FiltersData } from "../components/Common/Filters/types/filters.interface";
 
 interface AppContextData {
   filters: FiltersData;
@@ -23,7 +23,7 @@ interface AppProviderProps {
 
 export const AppContext = ({ children }: AppProviderProps) => {
   const [filters, setFilters] = useState<FiltersData>({
-    searchRepoValue: "",
+    searchReposValue: "",
     searchUsersValue: "",
     perPage: 10,
   });

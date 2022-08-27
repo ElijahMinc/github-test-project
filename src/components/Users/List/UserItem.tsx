@@ -1,13 +1,13 @@
-import React from "react";
-import { NavLink } from "react-router-dom";
-import { User } from "../../types/user.interface";
-import styles from "./User.module.scss";
-import avatarImg from "../../static/avatar.png";
+import React from "react"
+import { NavLink } from "react-router-dom"
+import { User } from "../types/user.interface"
+import styles from "./User.module.scss"
+import avatarImg from "../../../static/avatar.png"
 
 type UserItemProps = Pick<
   User,
   "id" | "name" | "avatar_url" | "public_repos" | "login"
->;
+>
 
 export const UserItem: React.FC<UserItemProps> = ({
   id,
@@ -32,5 +32,5 @@ export const UserItem: React.FC<UserItemProps> = ({
         </p>
       </li>
     </NavLink>
-  );
-};
+  )
+}

@@ -1,9 +1,9 @@
-import { getMaskSearchUsersQuery } from "../helpers/getMaskSearchQuery";
-import { $BaseApi } from "../http/axios";
-import { FiltersData } from "../types/filters.interface";
-import { GitHubResponseBySearch } from "../types/response-github.interface";
-import { User } from "../types/user.interface";
-import { HttpRequest } from "./HttpService";
+import { getMaskSearchUsersQuery } from "../helpers/getMaskSearchQuery"
+import { $BaseApi } from "../http/axios"
+import { FiltersData } from "../components/Common/Filters/types/filters.interface"
+import { User } from "../components/Users/types/user.interface"
+import { HttpRequest } from "./HttpService"
+import { GitHubResponseBySearch } from "../components/Repository/types/repository-response.interface"
 
 class UserService extends HttpRequest {
   async getAllUsers(
@@ -15,30 +15,30 @@ class UserService extends HttpRequest {
         `/search/users?q=${getMaskSearchUsersQuery(
           searchValue
         )}&per_page=${perPage}`
-      );
+      )
 
       const getUsersById = data.items.map(({ id }) =>
         $BaseApi.get(`/user/${id}`)
-      );
+      )
 
-      const usersById = await Promise.all(getUsersById);
-      const users = usersById.map(({ data }) => data);
+      const usersById = await Promise.all(getUsersById)
+      const users = usersById.map(({ data }) => data)
 
-      return users;
+      return users
     } catch (error) {
-      throw new Error("Error get users");
+      throw new Error("Error get users")
     }
   }
 
   async getUserById(id: number): Promise<User[]> {
     try {
-      const { data } = await $BaseApi.get(`/user/${id}`);
+      const { data } = await $BaseApi.get(`/user/${id}`)
 
-      return [data];
+      return [data]
     } catch (error) {
-      throw new Error("Error get users");
+      throw new Error("Error get users")
     }
   }
 }
 
-export default new UserService();
+export default new UserService()

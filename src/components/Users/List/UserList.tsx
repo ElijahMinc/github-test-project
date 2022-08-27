@@ -1,5 +1,5 @@
 import React from "react";
-import { User } from "../../types/user.interface";
+import { User } from "../types/user.interface";
 import styles from "./User.module.scss";
 import { UserItem } from "./UserItem";
 

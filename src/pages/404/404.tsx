@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./404.module.scss";
 import errorImage from "../../static/404.png";
-import { Button } from "../Common/Button/Button";
+import { Button } from "../../components/Common/Button/Button";
 import { useHistory } from "react-router-dom";
 
 export const ErrorPage: React.FC = () => {

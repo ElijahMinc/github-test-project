@@ -1,16 +1,16 @@
-import { useCallback, useEffect, useRef, useState } from "react";
-import { useAppContext } from "../../context/AppContext";
-import { useScroll } from "../../hooks/useScroll";
-import { useSkipFirstMount } from "../../hooks/useSkipFirstMount";
-import userService from "../../service/UserService";
-import { User } from "../../types/user.interface";
-import { Loader } from "../Common/Loader/Loader";
-import { errorToast, successToast } from "../Common/Toast/actions";
+import { useCallback, useEffect, useRef, useState } from "react"
+import { useAppContext } from "../../context/AppContext"
+import { useScroll } from "../../hooks/useScroll"
+import { useSkipFirstMount } from "../../hooks/useSkipFirstMount"
+import userService from "../../service/UserService"
+import { User } from "./types/user.interface"
+import { Loader } from "../Common/Loader/Loader"
+import { errorToast, successToast } from "../Common/Toast/actions"
 
 interface LaunchUserProps {
-  render: (users: User[]) => JSX.Element;
-  isInfinityPagination: boolean;
-  userId?: number;
+  render: (users: User[]) => JSX.Element
+  isInfinityPagination: boolean
+  userId?: number
 }
 
 export const FetchUsers: React.FC<LaunchUserProps> = ({
@@ -18,73 +18,73 @@ export const FetchUsers: React.FC<LaunchUserProps> = ({
   isInfinityPagination,
   userId,
 }) => {
-  const [users, setUsers] = useState<User[]>([]);
-  const [isFetching, setFetching] = useState(false);
-  const { filters, handleFilterChange } = useAppContext();
-  const [isError, setError] = useState(false);
-  const childRef = useRef<HTMLDivElement | null>(null);
+  const [users, setUsers] = useState<User[]>([])
+  const [isFetching, setFetching] = useState(false)
+  const { filters, handleFilterChange } = useAppContext()
+  const [isError, setError] = useState(false)
+  const childRef = useRef<HTMLDivElement | null>(null)
 
   const fetchUsers = useCallback(
     async (perPage: number) => {
-      setFetching(true);
+      setFetching(true)
       try {
         const users = userId
           ? await userService.getUserById(userId)
           : await userService.getAllUsers(
               filters.searchUsersValue,
               Number(perPage)
-            );
+            )
 
-        setUsers(users);
-        successToast("Users are loaded");
+        setUsers(users)
+        successToast("Users are loaded")
       } catch (error) {
-        setError(true);
-        errorToast("Oops... Something went wrong :C");
+        setError(true)
+        errorToast("Oops... Something went wrong :C")
       } finally {
-        setFetching(false);
+        setFetching(false)
       }
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [filters.searchUsersValue, filters.perPage]
-  );
+  )
 
   useScroll(
     {
       childRef,
     },
     (_: IntersectionObserver) => {
-      const isNotObservering = !isInfinityPagination || isFetching || isError;
+      const isNotObservering = !isInfinityPagination || isFetching || isError
 
-      if (isNotObservering) return;
-      fetchUsers(+filters.perPage);
+      if (isNotObservering) return
+      fetchUsers(+filters.perPage)
 
-      handleFilterChange("perPage", +filters.perPage + 10);
+      handleFilterChange("perPage", +filters.perPage + 10)
 
-      window.scrollBy(0, -100);
+      window.scrollBy(0, -100)
     },
     {
       root: null,
       rootMargin: "0px",
       threshold: 0,
     }
-  );
+  )
 
   useEffect(() => {
     if (!isInfinityPagination) {
-      fetchUsers(+filters.perPage);
+      fetchUsers(+filters.perPage)
     }
 
     return () => {
-      userService.abortRequest();
-    };
+      userService.abortRequest()
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [])
 
   useSkipFirstMount(() => {
-    fetchUsers(+filters.perPage);
-  }, [filters.searchUsersValue.length]);
+    fetchUsers(+filters.perPage)
+  }, [filters.searchUsersValue.length])
 
-  const isEmptyUsers = !isFetching && !users.length;
+  const isEmptyUsers = !isFetching && !users.length
 
   return (
     <div>
@@ -93,5 +93,5 @@ export const FetchUsers: React.FC<LaunchUserProps> = ({
       {isEmptyUsers && <h2>No users</h2>}
       <div ref={isInfinityPagination ? childRef : null}></div>
     </div>
-  );
-};
+  )
+}

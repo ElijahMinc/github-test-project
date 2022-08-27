@@ -1,14 +1,14 @@
-import { UserPage } from "./../pages/User";
-import { RouteProps } from "react-router-dom";
-import { HomePage } from "../pages/Home";
-import { ROUTES } from "../constants/constants";
-import { ErrorPage } from "../components/404/404";
+import { PersonPage } from "../pages/Person/Person"
+import { RouteProps } from "react-router-dom"
+import { HomePage } from "../pages/Home/Home"
+import { ROUTES } from "../constants/constants"
+import { ErrorPage } from "../pages/404/404"
 
 export const publicRoutes: RouteProps[] = [
   {
-    component: UserPage,
+    component: PersonPage,
     exact: true,
-    path: ROUTES.USER,
+    path: ROUTES.PERSON,
   },
   {
     component: HomePage,
@@ -16,8 +16,8 @@ export const publicRoutes: RouteProps[] = [
     path: ROUTES.HOME,
   },
   {
-    exact: false,
-    path: "/*",
     component: ErrorPage,
+    exact: false,
+    path: ROUTES.ERROR,
   },
-];
+]

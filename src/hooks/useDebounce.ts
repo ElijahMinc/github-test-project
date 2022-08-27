@@ -1,13 +1,13 @@
 import { useRef } from "react";
 
-type UseDebounceType = (
+type DebounceType = (
   cb: (value: string | undefined) => void,
   time: number
 ) => () => (
   e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | undefined
 ) => void;
 
-export const useDebounce: UseDebounceType = (cb, time) => {
+export const useDebounce: DebounceType = (cb, time) => {
   const timeoutRef = useRef<NodeJS.Timeout | undefined>(undefined);
 
   return () =>

@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./UserBio.module.scss";
 import { getClassNames } from "../../../helpers/getClassNames";
-import { User } from "../../../types/user.interface";
+import { User } from "../../Users/types/user.interface";
 import { getFormatDate } from "../../../helpers/getFormatDate";
 import avatarImg from "../../../static/avatar.png";
 
